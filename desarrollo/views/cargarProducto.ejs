@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('./partials/head') %>
+    <title>Crear de producto</title>
+    <link rel="stylesheet" href="/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/css/styles-reg-log.css" />
+</head>
+
+<body>
+  <header>
+    <%- include('./partials/headerProduct') %>
+
+      <title>Cargar nuevo producto</title>
+  </header>
+  <main>
+    <div class="container products-wrapper">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="titulo-crear">
+            Agregá un producto completando el formulario:
+          </h1>
+        </div>
+      </div>
+      <div class="col-12">
+        <form action="/products" id="formulario" method="POST" enctype="multipart/form-data">
+          <div class="row product-detail">
+            <div class="col-12 col-md-6">
+              <label for="nombre" class="form-label">Nombre del producto:</label>
+              <div>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese un nombre para el producto" class="cajas"
+                  maxlength="30" value="<%= oldData.nombre ? oldData.nombre : "" %>"/><span class="error"></span>
+                <% if (locals.errors && errors.nombre) { %>
+                  <div class="error-login">
+                    <p>
+                      <%= errors.nombre.msg %>
+                    </p>
+                  </div>
+                  <% } %>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="precio" class="form-label">Precio del producto:</label>
+              <input type="text" id="precio" name="precio" placeholder="Ingrese precio del producto" class="cajas" value="<%= oldData.precio ? oldData.precio : "" %>"/><span class="error"></span>
+              <% if (locals.errors && errors.precio) { %>
+                <div class="error-login">
+                  <p>
+                    <%= errors.precio.msg %>
+                  </p>
+                </div>
+                <% } %>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="categoria" class="form-label">Categoría:</label>
+              <select name="idProductoCategorias" id="idProductoCategorias" class="cajas">
+                <% categories.forEach(categoria=> { %>
+                  <option value="<%=categoria.id%>">
+                    <%=categoria.nombre%>
+                  </option>
+                  <% }) %>
+              </select>
+            </div>
+              <div class="col-12 col-md-6" style="display: flex;">
+                <label for="seccion" class="form-label">Sección:</label>
+                <select name="seccion" id="seccion" class="cajas">
+                  <option value="oferta">En oferta</option>
+                  <option value="destacado">Destacados</option>
+                </select>
+                <div class="col-12 col-md-6">
+                  <label for="stock" class="form-label">Stock:</label>
+                  <input type="number" name="stock" id="stock" class="cajas" min="0">
+                </div>
+              </div>
+            <div class="col-12 col-md-6">
+              <label for="descuento" class="form-label">Descuento:</label>
+              <input type="text" id="descuento" name="descuento" placeholder="% de descuento" class="cajas" value="<%= oldData.descuento ? oldData.descuento : "" %>"/><span class="error"></span>
+              <% if (locals.errors && errors.descuento) { %>
+                <div class="error-login">
+                  <p>
+                    <%= errors.descuento.msg %>
+                  </p>
+                </div>
+                <% } %>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="imagen" class="form-label">Adjuntar imágenes:</label>
+              <div>
+                <input type="file" name="imagen" id="imagen" class="cajas" onchange="return fileValidation()" /><span
+                  class="error"></span>
+                <% if (locals.errors && errors.imagen) { %>
+                  <div class="error-login">
+                    <p>
+                      <%= errors.imagen.msg %>
+                    </p>
+                  </div>
+                  <% } %>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="descripcion" class="form-label">Descripción:</label>
+              <div>
+                <textarea name="descripcion" id="descripcion" class="cajas" value="<%= oldData.descuento ? oldData.descuento : "" %>"></textarea><span class="error"></span>
+              </div>
+              <% if (locals.errors && errors.descripcion) { %>
+                <div class="error-login">
+                  <p>
+                    <%= errors.descripcion.msg %>
+                  </p>
+                </div>
+                <% } %>
+            </div>
+            <div class="errores">
+              <ul id="errores"></ul>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn">CREAR NUEVO PRODUCTO</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <%- include("./partials/footer-form") %>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+  <script src="/js/create-form.js"></script>
+</body>
+</html>

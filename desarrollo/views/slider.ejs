@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Detalle de producto</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/slider.css">
+</head>
+
+<body>
+  <div class="container ">
+    <div class="row ">
+      <div class="col-lg-12">
+        <h2>Productos <b>similares</b></h2>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+          <!-- Carousel indicators -->
+          <!-- <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol> -->
+          <!-- Wrapper for carousel items -->
+          <div class="carousel-inner">
+            <div class="item carousel-item active">
+              <div class="row">
+                <% sameCategorie.forEach(e=> {%>
+                  <div class="col-sm-3">
+                    <div class="thumb-wrapper">
+                      <div class="img-box">
+                        <a href="/products/<%=e.id%> ">
+                            <% if(e.images[0]){ %> 
+                              <img class="img-responsive img-fluid"
+                              src="/images/products/<%=e.images[0].imagen%>"
+                              alt="" />
+                              <%} else {%> 
+                              <img class="img-responsive img-fluid"
+                              src="/images/products/prod-default.jpg"
+                              alt="" />
+                              <%} %> 
+                            </a>
+                      </div>
+                      <div class="thumb-content">
+                        <h4>
+                          <%= e.nombre %>
+                        </h4>
+                        <p class="item-price">
+                          <% if(e.seccion=="oferta" ){ %>
+                            <strike>
+                              $ <%= e.precio %>
+                            </strike>
+                            <% } %>
+                              <span>$ <%= Math.trunc(e.precio * ((100 - e.descuento)/100)) %> </span>
+                        </p>
+                        <div class="star-rating">
+                        </div>
+                        <a href="/cart" class="btn btn-primary">Agregar al carrito</a>
+                      </div>
+                    </div>
+                  </div>
+                  <% }); %>
+              </div>
+            </div>
+          </div>
+          <!-- Carousel controls -->
+          <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+          </a>
+          <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

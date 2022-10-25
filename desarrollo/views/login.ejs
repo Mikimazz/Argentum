@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('./partials/head') %>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/bootstrap-grid.min.css" />
+    <link href="/css/styles-reg-login.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Inicio Header importado -->
+  <header>
+    <%- include('./partials/header-logo') %>
+  </header>
+  <main>
+    <form class="container col-md-3" id="formulario" style="margin-top: 20px;" action="/login" method="POST">
+      <div class="row product-detail" style="text-align: center">
+        <div class="form-label" style="margin-left: 20px;">Iniciar sesión</div>
+        <div class="col-12">
+          <label for="email" class="form-label">Email:</label>
+          <div>
+          <input class="cajas" id="email" name="email" placeholder="Email" maxlength="50" onchange="return validateEmail()"/><span class="error"></span>
+          </div>
+          <% if (locals.errors && errors.email) { %>
+            <div class="error-login">
+              <p>
+                <%= errors.email.msg %>
+              </p>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="col-12">
+          <label for="password" class="form-label">Contraseña:</label>
+          <div>
+          <input class="cajas" type="password" id="password" name="password" placeholder="Contraseña" maxlength="30" /><span class="pass-span">Mostrar</span><span class="error"></span>
+          </div>
+        </div>
+        <div class="container-error">
+          <p>
+            <% if (locals.error) { %>
+              <div class="error-login">Tus credenciales son inválidas</div>
+              <% } %>
+          </p>
+        </div>
+        <div class="errores">
+          <ul id="errores"></ul>
+        </div>
+        <div class="col-12 remember"><input type="checkbox" name="recordame" /> Recordarme</div>
+
+
+        <input type="submit" style="margin-left: auto; margin-right: auto;" class="col-md-6 btn" value="INGRESAR" />
+
+        <div class="col-12 tengo-cuenta">
+          <a href="/register" class="tengo-cuenta">¿No tenés cuenta? ¡Creá una!</a>
+        </div>
+        <!-- <div class="col-12 forget">
+              <a href="">¿Olvidaste tu Contraseña?</a>
+            </div> -->
+
+      </div>
+    </form>
+  </main>
+  <!-- Comienzo footer -->
+  <footer>
+    <%- include ('./partials/footer-form') %>
+  </footer>
+  <script>
+        document.querySelector('.pass-span').addEventListener('click',e =>{
+      const passwordInput = document.querySelector('#password');
+      if (e.target.classList.contains('show')) {
+        e.target.classList.remove('show');
+        e.target.textContent = 'Ocultar';
+        passwordInput.type = 'text';
+      } else {
+        e.target.classList.add('show');
+        e.target.textContent = 'Mostrar';
+        passwordInput.type = 'password';
+      }
+    })
+  </script>
+  <script src="/js/login-form.js"></script>
+</body>
+</html>

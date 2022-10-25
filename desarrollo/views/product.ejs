@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('./partials/head-prod') %>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Detalle de producto</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" />
+        <link rel="stylesheet" href="/css/product.css">
+        <link rel="stylesheet" href="/css/nav-prod.css" />
+
+</head>
+
+<body>
+    <header>
+        <%- include('./partials/header-prod') %>
+            <title>Detalle de producto</title>
+    </header>
+
+    <div class="container-lg">
+        <div class="col-lg-12 mw-100">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <div class="pro-img-details fx-rap text-center">
+                            <% if(producto.images[0]){ %> 
+                                <img class="imgcenter" id="main-image"
+                                src="/images/products/<%=producto.images[0].imagen%>"
+                                alt="<%=producto.nombre%>" />
+                                <%} else {%> 
+                                <img class="imgcenter" id="main-image"
+                                src="/images/products/prod-default.jpg"
+                                alt="<%=producto.nombre%>" />
+                                <%} %> 
+                        </div>
+                        <div class="pro-img-list">
+                        <% let index = 0; %> 
+                        <% producto.images.forEach(imagen =>{%> 
+                            <% index += 1 %> 
+                            <a href="#<%= index %>" style="width: 50%; text-align: center;">
+                                <img style="width: 120px; height: 120px;" src="/images/products/<%=imagen.imagen%>" onclick="setSrc('main-image', this.src)"
+                                alt="<%=imagen.imagen%>">
+                            </a>
+                        <%}) %> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 descripcion">
+                        <p style="margin-top: 30px" class="pro-d-title">
+                            <%=producto.nombre%>
+                        </p>
+                        <h4 style="margin-top: 30px">Descripción:</h4>
+                        <div>
+                            <span>
+                                <%=producto.descripcion%>
+                            </span>
+                        </div>
+                        <div class="product_meta" style="margin-bottom: 20px; margin-top: 30px">
+                            <span class="posted_in"> <strong>Categoría:</strong> <a rel="tag" href="/products/category/<%=producto.categorie.id%>">
+                                    <%=producto.categorie.nombre%>
+                                </a></span>
+
+                        </div>
+                        <div class="m-bot15" style="margin-bottom: 20px;">
+                            <% if (producto.seccion=="oferta" ) { %>
+                                <strong>Precio: </strong> <span style="text-decoration: line-through" class="tachado">$
+                                    <%= producto.precio %>
+                                </span>
+                                <% } %>
+                                    <span class="pro-price"><strong style="color: green; font-size: 16px;">$
+                                            <%= Math.trunc(producto.precio * ((100 - producto.descuento)/100))%>
+                                        </strong></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input type="quantiy" placeholder="1" style="width: 15%; margin-bottom: 20px;"
+                                class="form-control quantity">
+                        </div>
+                        <p>
+                            <button class="btn btn-round btn-success" type="button"><a href="/cart/<%= producto.id %> "
+                                    style="color: black; text-decoration: none;"><i class="fa fa-shopping-cart"></i>
+                                    Agregar al carrito</a></button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div>
+            <%- include("./slider") %>
+        </div>
+        <footer>
+            <%- include("./partials/footer") %>
+        </footer>
+        <script type="text/javascript">
+
+            function $(element_id)
+            {
+                return document.getElementById(element_id);
+            }
+            function setSrc(element_id, src)
+            {
+                var element = $(element_id);
+                element.src = src;
+            }
+        </script>
+</body>
+
+</html>
